@@ -3,11 +3,10 @@
 //  TinyRituals
 //
 //  Created by Alex Plat on 14.09.26.
-//
 
 import SwiftUI
 
-// MARK: - Палитра
+// MARK: - Palette
 
 enum RitualPalette {
     static let names = ["teal", "mint", "red", "purple", "orange", "pink", "blue"]
@@ -26,7 +25,7 @@ enum RitualPalette {
     }
 }
 
-// MARK: - Модель
+// MARK: - Model
 
 struct Ritual: Identifiable, Codable, Hashable {
     var id: UUID = UUID()
@@ -39,7 +38,7 @@ struct Ritual: Identifiable, Codable, Hashable {
     }
 }
 
-// MARK: - Работа с датами
+// MARK: - Date helpers
 
 enum DateKey {
     private static let formatter: DateFormatter = {
@@ -58,7 +57,7 @@ enum DateKey {
     }
 }
 
-// MARK: - Хранилище
+// MARK: - Store
 
 final class RitualStore: ObservableObject {
     @Published var rituals: [Ritual] = [] {
@@ -77,7 +76,7 @@ final class RitualStore: ObservableObject {
         load()
     }
 
-    // MARK: Действия
+    // MARK: Actions
 
     func toggleToday(for ritual: Ritual) {
         let key = ritual.id.uuidString
@@ -105,7 +104,7 @@ final class RitualStore: ObservableObject {
         rituals.removeAll { $0.id == ritual.id }
     }
 
-    // MARK: Сохранение и загрузка
+    // MARK: Persistence
 
     private func saveRituals() {
         guard !isLoading else { return }
@@ -141,13 +140,13 @@ final class RitualStore: ObservableObject {
     }
 
     private static let defaultRituals: [Ritual] = [
-        Ritual(icon: "drop.fill", title: "Выпить воды", colorName: "teal"),
-        Ritual(icon: "figure.walk", title: "Прогулка", colorName: "red"),
-        Ritual(icon: "book.fill", title: "Почитать вместе", colorName: "purple")
+        Ritual(icon: "drop.fill", title: String(localized: "Drink water"), colorName: "teal"),
+        Ritual(icon: "figure.walk", title: String(localized: "Walk"), colorName: "red"),
+        Ritual(icon: "book.fill", title: String(localized: "Read together"), colorName: "purple")
     ]
 }
 
-// MARK: - Главный экран
+// MARK: - Main screen
 
 struct ContentView: View {
     @StateObject private var store = RitualStore()
@@ -176,7 +175,7 @@ struct ContentView: View {
                             Button(role: .destructive) {
                                 store.delete(ritual)
                             } label: {
-                                Label("Удалить", systemImage: "trash")
+                                Label("Delete", systemImage: "trash")
                             }
                         }
                     }
@@ -184,7 +183,7 @@ struct ContentView: View {
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
             }
-            .navigationTitle("Все ритуалы")
+            .navigationTitle("All rituals")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -205,7 +204,7 @@ struct ContentView: View {
     }
 }
 
-// MARK: - Добавление ритуала
+// MARK: - Add ritual
 
 struct AddRitualView: View {
     @Environment(\.dismiss) private var dismiss
@@ -234,11 +233,11 @@ struct AddRitualView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Название") {
-                    TextField("Например: Сон ребёнка", text: $title)
+                Section("Title") {
+                    TextField("e.g. Baby's sleep", text: $title)
                 }
 
-                Section("Иконка") {
+                Section("Icon") {
                     LazyVGrid(
                         columns: Array(repeating: GridItem(.flexible()), count: 4)
                     ) {
@@ -266,7 +265,7 @@ struct AddRitualView: View {
                     }
                 }
 
-                Section("Цвет") {
+                Section("Color") {
                     HStack(spacing: 14) {
                         ForEach(RitualPalette.names, id: \.self) { name in
                             Button {
@@ -292,7 +291,7 @@ struct AddRitualView: View {
                 }
 
                 Section {
-                    Button("Добавить ритуал") {
+                    Button("Add ritual") {
                         onAdd(
                             Ritual(
                                 icon: selectedIcon,
@@ -305,11 +304,11 @@ struct AddRitualView: View {
                     .disabled(trimmedTitle.isEmpty)
                 }
             }
-            .navigationTitle("Новый ритуал")
+            .navigationTitle("New ritual")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Отмена") {
+                    Button("Cancel") {
                         dismiss()
                     }
                 }
@@ -318,7 +317,7 @@ struct AddRitualView: View {
     }
 }
 
-// MARK: - Карточка ритуала
+// MARK: - Ritual card
 
 struct RitualHistoryCard: View {
     let ritual: Ritual
@@ -410,12 +409,12 @@ struct RitualHistoryCard: View {
     }
 }
 
-// MARK: - Подписи месяцев
+// MARK: - Month labels
 
 struct MonthLabels: View {
     private static let monthFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ru_RU")
+        formatter.locale = Locale.current
         formatter.setLocalizedDateFormatFromTemplate("LLL")
         return formatter
     }()
@@ -456,7 +455,7 @@ struct MonthLabels: View {
     }
 }
 
-// MARK: - Сетка истории
+// MARK: - History grid
 
 struct HabitGrid: View {
     let color: Color
@@ -491,7 +490,7 @@ struct HabitGrid: View {
     }
 }
 
-// MARK: - Вспомогательное
+// MARK: - Helpers
 
 struct StatisticBadge: View {
     let icon: String
