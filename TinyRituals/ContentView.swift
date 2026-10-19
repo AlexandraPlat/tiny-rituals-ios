@@ -100,11 +100,9 @@ final class RitualStore: ObservableObject {
         rituals.append(ritual)
     }
 
-    func delete(at offsets: IndexSet) {
-        for index in offsets {
-            completedDates[rituals[index].id.uuidString] = nil
-        }
-        rituals.remove(atOffsets: offsets)
+    func delete(_ ritual: Ritual) {
+        completedDates[ritual.id.uuidString] = nil
+        rituals.removeAll { $0.id == ritual.id }
     }
 
     // MARK: Сохранение и загрузка
@@ -161,21 +159,30 @@ struct ContentView: View {
                 Color(red: 0.94, green: 0.93, blue: 0.91)
                     .ignoresSafeArea()
 
-                ScrollView {
-                    VStack(spacing: 20) {
-                        ForEach(store.rituals) { ritual in
-                            RitualHistoryCard(
-                                ritual: ritual,
-                                completedDays: store.days(for: ritual)
-                            ) {
-                                store.toggleToday(for: ritual)
+                List {
+                    ForEach(store.rituals) { ritual in
+                        RitualHistoryCard(
+                            ritual: ritual,
+                            completedDays: store.days(for: ritual)
+                        ) {
+                            store.toggleToday(for: ritual)
+                        }
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(
+                            EdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16)
+                        )
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button(role: .destructive) {
+                                store.delete(ritual)
+                            } label: {
+                                Label("Удалить", systemImage: "trash")
                             }
                         }
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.top, 12)
-                    .padding(.bottom, 24)
                 }
+                .listStyle(.plain)
+                .scrollContentBackground(.hidden)
             }
             .navigationTitle("Все ритуалы")
             .navigationBarTitleDisplayMode(.inline)
