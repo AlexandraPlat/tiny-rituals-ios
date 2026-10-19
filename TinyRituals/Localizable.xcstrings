@@ -132,6 +132,149 @@
           }
         }
       }
+    },
+    "Pregnancy": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Беременность"
+          }
+        }
+      }
+    },
+    "Baby, up to 1 year": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Малыш до года"
+          }
+        }
+      }
+    },
+    "Toddler, 1–3 years": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ребёнок 1–3 лет"
+          }
+        }
+      }
+    },
+    "Child, 3+ years": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ребёнок от 3 лет"
+          }
+        }
+      }
+    },
+    "Prenatal vitamins": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Витамины для беременных"
+          }
+        }
+      }
+    },
+    "Rest": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отдых"
+          }
+        }
+      }
+    },
+    "Bedtime routine": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ритуал перед сном"
+          }
+        }
+      }
+    },
+    "Walk outside": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прогулка на улице"
+          }
+        }
+      }
+    },
+    "Tummy time": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выкладывание на животик"
+          }
+        }
+      }
+    },
+    "Cuddle time": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Время объятий"
+          }
+        }
+      }
+    },
+    "Play together": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Играть вместе"
+          }
+        }
+      }
+    },
+    "Tidy up together": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Убраться вместе"
+          }
+        }
+      }
+    },
+    "Outdoor play": {
+      "extractionState": "manual",
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Игры на улице"
+          }
+        }
+      }
     }
   },
   "version": "1.0"
